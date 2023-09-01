@@ -1,0 +1,175 @@
+body{
+    background-color: rgb(26, 27, 37) !important;
+}
+@import url('https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap');
+
+body {
+    background: #cecece
+}
+
+
+
+
+.navbar-brand:hover {
+    color: #fff
+}
+
+.left-side img {
+  margin-left: -10rem;
+  margin-top: -4rem;
+}
+
+
+.shape {
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    background: linear-gradient(to bottom, #c45a0e, #eeeeee 100%);
+    position: absolute;
+    -webkit-clip-path: ellipse(500px 500px at 10% 5%)
+}
+
+.right-side {
+    padding-top: 150px;
+}
+
+.right-side h1 {
+    font-family: 'Allerta Stencil', sans-serif;
+    font-size: 3.4em;
+    text-align: center;
+    color: white;
+}
+
+.right-side p {
+    font-size: 1.5em;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+}
+
+.btn.order-button {
+    background: transparent;
+    border: 2px solid #c45a0e;
+    color: white;
+    border-radius: 30%;
+    transition: 0.7s
+}
+
+.btn.order-button:hover{
+    background-color: white;
+    color: #c45a0e;
+}
+
+.nav-items{
+    display: flex;
+    justify-content: space-around;
+    background-color: #c45a0e;
+    padding: 2%;
+    position: fixed;
+    width: 80%;
+    bottom: 0rem;
+    left: 6.5rem;
+    border-radius: 20px;
+    z-index: 2;
+}
+@media screen and (max-width: 600px) {
+    .nav-items{
+      margin-left: -3rem !important;
+    }
+}
+
+.nav-list, a{
+    list-style-type: none !important;
+    text-decoration: none !important;
+    color: white !important;
+    font-size: 20px;
+    font-weight: bolder;
+}
+.floatingActionButton{
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50px;
+    background-color: white;
+    position: fixed;
+    right: 1rem;
+    top: 25rem;
+    z-index: 2;
+}
+.cart-icon{
+   color: black;
+   text-align: center;
+   margin-top: 0.5rem;
+   margin-left: 0.5rem;
+}
+
+.orders-num{
+    font-size: 20px;
+    color: #c45a0e;
+    position: relative;
+    top: -0.5rem;
+    font-weight: bolder;
+    background-color: rgba(255, 255, 255, 0.758);
+    padding: 4%;
+    border-radius: 50px;
+    display: none;
+    width: 25px;
+}
+.card-list{
+    margin-top: 10rem;
+}
+.search-bar{
+    width: 50% !important;
+    margin: auto;
+}
+#basic-addon1{
+    background-color: #c45a0e;
+    color: white;
+}
+.filter-list{
+    display: flex;
+    justify-content: space-around;
+}
+.li-filter{
+    list-style-type: none;
+}
+.btn-filter{
+    background-color: transparent;
+   
+    font-weight: bold;
+    border: 2px solid #c45a0e;
+    padding: 5px;
+}
+.btn-filter:hover{
+    background-color: white !important;
+    color: #c45a0e !important;
+}
+.btn-order{
+    height: 2.5rem;
+    width: 3rem;
+    border-radius: 10px;
+    background-color: #c45a0e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    color: white;
+}
+.btn-order:hover{
+   border: 1px solid #c45a0e;
+   background-color: transparent;
+    color: #000000;
+}
+.card{
+    -webkit-transition: 1s ease-in-out;
+    -moz-transition: 1s ease-in-out;
+    -o-transition: 0.4s ease-in-out;
+    transition: 0.4s ease-in-out;
+}
+.card:hover{
+    -webkit-transform: translate(-1em, 1rem);
+    -moz-transform: translate(-1em, 1em);
+    -o-transform: translate(-1em, 1em);
+    -ms-transform: translate(-1em, 1em);
+    transform: translate(-1em, 2);
+}
+
