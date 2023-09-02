@@ -3,9 +3,6 @@ body{
 }
 @import url('https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap');
 
-body {
-    background: #cecece
-}
 
 
 
@@ -121,10 +118,6 @@ body {
     width: 50% !important;
     margin: auto;
 }
-#basic-addon1{
-    background-color: #c45a0e;
-    color: white;
-}
 .filter-list{
     display: flex;
     justify-content: space-around;
@@ -159,4 +152,19 @@ body {
    border: 1px solid #c45a0e;
    background-color: transparent;
     color: #000000;
+}
+.modal-container{
+    background-color: rgba(255, 255, 255, 0.032);
+    width: 30%;
+    height: 7rem;
+    color: #ffffff;
+    border-radius: 20px;
+}
+.li-modal{
+    margin-bottom: 3rem;
+}
+.modal-container{
+    position: fixed;
+    top: 27rem;
+    right: 2rem;
 }

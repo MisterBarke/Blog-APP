@@ -124,9 +124,13 @@ createArticle (card_details);
 
 
 const addToCart = ()=>{
- 
+  btn_order.forEach(btn =>{
+    btn.addEventListener("click", ()=>{
+      console.log('yoy');
+    })
+  })
 }
-addToCart()
+addToCart();
 
 let filteredEl ;
 const filterList = document.querySelectorAll('.li-filter');
