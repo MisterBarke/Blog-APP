@@ -1,68 +1,77 @@
 
-const card_details = [
+let card_details = [
     
         {
-            item : 'Rolex1',
+            id : 1,
+            item : 'Audemar Piguet Royal Oak',
             description : "Some quick example text to build on the card title andmake up the bulk of the card's content",
             image : "./img/watch3.jpeg",
-            filter : "filter-men",
-            price: "XOF15000",
+            filter : "Men",
+            price: "$20000",
         },
         {
-            item : 'Rolex1',
+          id : 2,
+            item : 'Boucheron 18k',
             description : "Some quick example text to build on the card title andmake up the bulk of the card's content",
             image : "./img/watch4.jpeg",
-            filter : "filter-men",
-            price: "XOF15000"
+            filter : "Men",
+            price: "$20500"
         },
         {
-            item : 'Rolex1',
+          id : 3,
+            item : 'Rolex GMT-MASTER II',
             description : "Some quick example text to build on the card title andmake up the bulk of the card's content",
             image : "./img/watch5.jpeg",
-            filter : "filter-women",
-            price: "XOF15000",
+            filter : "Women",
+            price: "$1500",
         },
         {
-            item : 'Rolex1',
+          id : 4,
+            item : 'Bulgari Solotempo ST 30',
             description : "Some quick example text to build on the card title andmake up the bulk of the card's content",
             image : "./img/watch6.jpeg",
-            filter : "filter-men",
-            price: "XOF15000"
+            filter : "Men",
+            price: "$100,000"
         },
         {
-            item : 'Rolex1',
+          id : 5,
+            item : 'Chanel J12',
             description : "Some quick example text to build on the card title andmake up the bulk of the card's content",
             image : "./img/watch7.webp",
-            filter : "filter-men",
+            filter : "Men",
             price: "XOF15000"
         },
         {
-            item : 'Rolex1',
-            description : "Some quick example text to build on the card title andmake up the bulk of the card's content",
+          id : 6,
+            item : 'Chopard',
+            description : "Case in 18K white gold, silver and black dial holding 10 superb mobile diamonds. Case diameter: 25 mm.",
             image : "./img/watch8.jpeg",
-            filter : "filter-women",
-            price: "XOF15000"
+            filter : "Women",
+            price: "$12000"
         },
         {
-            item : 'Rolex1',
-            description : "Some quick example text to build on the card title andmake up the bulk of the card's content",
-            image : "./img/watch1.png",
-            filter : "filter-men",
-            price: "XOF15000"
+          id : 7,
+            item : 'Titan MX-15',
+            description : "Case in 18-carat white gold, openworked silver dial holding seven superb mobile diamonds.",
+            image : "./img/watch13.webp",
+            filter : "Women",
+            price: "$2100"
         },
         {
-            item : 'Rolex1',
-            description : "Some quick example text to build on the card title andmake up the bulk of the card's content",
-            image : "./img/watch10.jpeg",
-            filter : "filter-children",
-            price: "XOF15000"
+          id: 8,
+            item : 'Bill',
+            description : "Case diameter: 20.5mm. Original 18k yellow gold bracelet.In very good condition. Signed and numbered.",
+            image: "./img/watch10.jpeg",
+            filter : "Children",
+            price: "$200"
         },
         {
-            item : 'Rolex1',
-            description : "Some quick example text to build on the card title andmake up the bulk of the card's content",
+          id : 9,
+            item : 'Bill',
+            description : "Case diameter: 20.5mm. Original 18k yellow gold bracelet.In very good condition. Signed and numbered.",
             image : "./img/watch11.jpeg",
-            filter : "filter-children",
-            price: "XOF15000"
+            filter : "Children",
+            price: "$150"
         }
     ]
     const img_header = document.querySelector('.img-header');
@@ -72,8 +81,9 @@ const orders_num = document.querySelector('.orders-num');
 const btn_order = document.querySelectorAll(".btn-order");
 
 
-function createArticle (){
+function createArticle (card_details){
   const items_grid = document.querySelector('.items-grid');
+  items_grid.innerHTML = ""
   for (let i = 0; i < card_details.length; i++) {
   const listItem = `<div class="col cardCol ${card_details[i].filter}">
     <div class="p-3">
@@ -110,19 +120,40 @@ function createArticle (){
   items_grid.innerHTML += listItem
 }
 }
-createArticle ();
+createArticle (card_details);
 
 
 const addToCart = ()=>{
- btn_order.forEach(order =>{
-  order.addEventListener("click", (e)=>{
-      e.preventDefault();
-      orders_num.innerHTML++;
-      orders_num.setAttribute('style', 'display: block')
-    })
-  })
+ 
 }
 addToCart()
+
+let filteredEl ;
+const filterList = document.querySelectorAll('.li-filter');
+filterList.forEach(btn=>{
+
+  btn.addEventListener("click", ()=>{
+
+
+if (btn.textContent.trim() === "All"){
+  filteredEl = card_details
+}else{
+  filteredEl = card_details.filter(el=>el.filter===btn.textContent.trim());
+  
+}
+createArticle (filteredEl);
+  })
+});
+const searchInput = document.getElementById('searchInput');
+searchInput.addEventListener('input', () => {
+  const searchText = searchInput.value.toLowerCase();
+  filteredEl = card_details.filter(el =>
+    el.item.toLowerCase().includes(searchText) ||
+    el.description.toLowerCase().includes(searchText)
+  );
+  createArticle(filteredEl);
+});
+
 
 /* const filterButtons = document.querySelectorAll('.btn-filter');
 const items = document.querySelectorAll('.col');
@@ -153,7 +184,7 @@ filterButtons.forEach(button => {
  */
 
 
-/* const filterList = document.querySelectorAll('.li-filter');
+/* 
 
 filterList.forEach(filter => {
   filter.addEventListener('click', () => {

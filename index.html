@@ -48,28 +48,7 @@
           </header>
         </div>
       </section>
-      <div class="modal fade" id="cart" tabindex="1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Cart</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <table class="show-cart table">
-                
-              </table>
-              <div>Total price: $<span class="total-cart"></span></div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Order now</button>
-            </div>
-          </div>
-        </div>
-      </div> 
+
       <div class="floatingActionButton">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -92,15 +71,15 @@
         <div class="row">
           <div class="col">
             <ul class="filter-list">
-              <li class="li-filter"><a href="#" class="btn-filter">Men</a></li>
-              <li class="li-filter">
-                <a href="#" class="btn-filter">Women</a>
+              <li class="li-filter btn-filter">Men</li>
+              <li class="li-filter btn-filter">
+               Women
               </li>
-              <li class="li-filter">
-                <a href="#" class="btn-filter">Children</a>
+              <li class="li-filter btn-filter">
+              Children
               </li>
-              <li class="li-filter filter-active">
-                <a href="#" class="btn-filter All">All</a>
+              <li class="li-filter btn-filter filter-active">
+               All
               </li>
             </ul>
           </div>
@@ -127,13 +106,14 @@
             placeholder="Search"
             aria-label="Username"
             aria-describedby="basic-addon1"
+            id="searchInput"
           />
         </div>
         <br />
         <div class="container-fluid text-center">
           <div class="row row-cols-1 row-cols-lg-3 row-cols-sm-2 g-2 g-lg-3 items-grid">
 
-          </div>
+          </div> <br><br><br><br><br><br><br>
         </div>
       </section>
     </main>
