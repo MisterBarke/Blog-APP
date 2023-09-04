@@ -7,7 +7,7 @@ let card_details = [
             description : "Some quick example text to build on the card title andmake up the bulk of the card's content",
             image : "./img/watch3.jpeg",
             filter : "Men",
-            price: "$20000",
+            price: "20000",
         },
         {
           id : 2,
@@ -15,7 +15,7 @@ let card_details = [
             description : "Some quick example text to build on the card title andmake up the bulk of the card's content",
             image : "./img/watch4.jpeg",
             filter : "Men",
-            price: "$20500"
+            price: "20500"
         },
         {
           id : 3,
@@ -23,7 +23,7 @@ let card_details = [
             description : "Some quick example text to build on the card title andmake up the bulk of the card's content",
             image : "./img/watch5.jpeg",
             filter : "Women",
-            price: "$1500",
+            price: "1500",
         },
         {
           id : 4,
@@ -31,7 +31,7 @@ let card_details = [
             description : "Some quick example text to build on the card title andmake up the bulk of the card's content",
             image : "./img/watch6.jpeg",
             filter : "Men",
-            price: "$100,000"
+            price: "100,000"
         },
         {
           id : 5,
@@ -47,7 +47,7 @@ let card_details = [
             description : "Case in 18K white gold, silver and black dial holding 10 superb mobile diamonds. Case diameter: 25 mm.",
             image : "./img/watch8.jpeg",
             filter : "Women",
-            price: "$12000"
+            price: "12000"
         },
         {
           id : 7,
@@ -55,7 +55,7 @@ let card_details = [
             description : "Case in 18-carat white gold, openworked silver dial holding seven superb mobile diamonds.",
             image : "./img/watch13.webp",
             filter : "Women",
-            price: "$2100"
+            price: "2100"
         },
         {
           id: 8,
@@ -63,7 +63,7 @@ let card_details = [
             description : "Case diameter: 20.5mm. Original 18k yellow gold bracelet.In very good condition. Signed and numbered.",
             image: "./img/watch10.jpeg",
             filter : "Children",
-            price: "$200"
+            price: "200"
         },
         {
           id : 9,
@@ -71,16 +71,13 @@ let card_details = [
             description : "Case diameter: 20.5mm. Original 18k yellow gold bracelet.In very good condition. Signed and numbered.",
             image : "./img/watch11.jpeg",
             filter : "Children",
-            price: "$150"
+            price: "150"
         }
     ]
     const img_header = document.querySelector('.img-header');
-    img_header.src = './img/watch1.png'
+    img_header.src = './img/watch1.png';
 //---------__-_-____----__---______--_---_-----_______-_____________________________________________________________________
 const orders_num = document.querySelector('.orders-num');
-const btn_order = document.querySelectorAll(".btn-order");
-
-
 function createArticle (card_details){
   const items_grid = document.querySelector('.items-grid');
   items_grid.innerHTML = ""
@@ -94,9 +91,9 @@ function createArticle (card_details){
           <p class="card-text">
             ${card_details[i].description}
           </p>
-          <div class="price">${card_details[i].price}
+          <div class="price">$${card_details[i].price}
           </div>
-        <div class="btn-order">
+        <button id="btn-order">
           <svg
           xmlns="http://www.w3.org/2000/svg"
           width="26"
@@ -112,7 +109,7 @@ function createArticle (card_details){
             d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"
           />
         </svg>
-        </div>
+        </button>
         </div>
       </div>
     </div>
@@ -122,15 +119,36 @@ function createArticle (card_details){
 }
 createArticle (card_details);
 
-
 const addToCart = ()=>{
-  btn_order.forEach(btn =>{
-    btn.addEventListener("click", ()=>{
-      console.log('yoy');
-    })
-  })
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn_order = document.querySelectorAll("#btn-order");
+    const modal_items = document.querySelector('.modal-items');
+    let divTotal = document.getElementById('total-price')
+
+    let totalPrice = 0;
+     btn_order.forEach((button, index) =>{
+      button.addEventListener('click', () => {
+        const product = card_details[index];
+        const productPrice = parseFloat(product.price);
+       const newList = `
+       <div id = "div-item">
+       <li class="li-modal">Item: ${product.item}</li>
+       <li class="li-modal">price: ${product.price}</li>
+       </div>
+       `
+       totalPrice += productPrice
+         modal_items.innerHTML += newList;
+         divTotal.innerHTML = `order: ${totalPrice}`
+         console.log(totalPrice);
+       });
+       
+     });
+   
+  });
 }
-addToCart();
+addToCart()
+// Ajoutez un gestionnaire d'événements click à chaque bouton
+
 
 let filteredEl ;
 const filterList = document.querySelectorAll('.li-filter');
