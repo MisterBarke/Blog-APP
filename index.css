@@ -137,7 +137,7 @@ body{
     background-color: white !important;
     color: #c45a0e !important;
 }
-.btn-order{
+#btn-order{
     height: 2.5rem;
     width: 3rem;
     border-radius: 10px;
@@ -147,6 +147,7 @@ body{
     justify-content: center;
     margin: auto;
     color: white;
+    border: none;
 }
 .btn-order:hover{
    border: 1px solid #c45a0e;
@@ -154,7 +155,7 @@ body{
     color: #000000;
 }
 .modal-container{
-    background-color: rgba(255, 255, 255, 0.032);
+    background-color: rgba(255, 255, 255, 0.129);
     width: 90%;
     height: 40vh;
     color: #ffffff;
@@ -165,6 +166,8 @@ body{
     overflow-y: scroll;
     z-index: 2;
     display: none;
+   
+
 }
 .li-modal{
     list-style-type: none;
@@ -175,15 +178,27 @@ body{
 .modal-items{
 display: flex;
 flex-direction: column;
+}
+#resetOrders{
+    margin-top: 2rem;
+    
+    width: 3rem;
+    height: 3rem;
+    border: none;
+    border-radius: 50px !important;
+    background-color: #c45a0e;
+    color: #ffffff;
+    display: none;
 
 }
 #div-item{
     display: flex;
     justify-content: space-between;
+    padding: 10px;
 }
 #total-price{
     position: fixed;
-    bottom: 10rem;
+    bottom: 35%;
     right: 5rem;
     width: 15rem;
     height: 3rem;
@@ -194,5 +209,4 @@ flex-direction: column;
    align-items: center;
    justify-content: center  ;
     font-size: 20px;
-    display: none;
 }

@@ -2,7 +2,7 @@
 let card_details = [
     
         {
-            id : 1,
+            
             item : 'Audemar Piguet Royal Oak',
             description : "Some quick example text to build on the card title andmake up the bulk of the card's content",
             image : "./img/watch3.jpeg",
@@ -10,7 +10,7 @@ let card_details = [
             price: "20000",
         },
         {
-          id : 2,
+      
             item : 'Boucheron 18k',
             description : "Some quick example text to build on the card title andmake up the bulk of the card's content",
             image : "./img/watch4.jpeg",
@@ -18,7 +18,7 @@ let card_details = [
             price: "20500"
         },
         {
-          id : 3,
+  
             item : 'Rolex GMT-MASTER II',
             description : "Some quick example text to build on the card title andmake up the bulk of the card's content",
             image : "./img/watch5.jpeg",
@@ -26,7 +26,7 @@ let card_details = [
             price: "1500",
         },
         {
-          id : 4,
+    
             item : 'Bulgari Solotempo ST 30',
             description : "Some quick example text to build on the card title andmake up the bulk of the card's content",
             image : "./img/watch6.jpeg",
@@ -34,15 +34,15 @@ let card_details = [
             price: "100,000"
         },
         {
-          id : 5,
+     
             item : 'Chanel J12',
             description : "Some quick example text to build on the card title andmake up the bulk of the card's content",
             image : "./img/watch7.webp",
             filter : "Men",
-            price: "XOF15000"
+            price: "15000"
         },
         {
-          id : 6,
+     
             item : 'Chopard',
             description : "Case in 18K white gold, silver and black dial holding 10 superb mobile diamonds. Case diameter: 25 mm.",
             image : "./img/watch8.jpeg",
@@ -50,7 +50,7 @@ let card_details = [
             price: "12000"
         },
         {
-          id : 7,
+  
             item : 'Titan MX-15',
             description : "Case in 18-carat white gold, openworked silver dial holding seven superb mobile diamonds.",
             image : "./img/watch13.webp",
@@ -58,7 +58,7 @@ let card_details = [
             price: "2100"
         },
         {
-          id: 8,
+      
             item : 'Bill',
             description : "Case diameter: 20.5mm. Original 18k yellow gold bracelet.In very good condition. Signed and numbered.",
             image: "./img/watch10.jpeg",
@@ -66,7 +66,6 @@ let card_details = [
             price: "200"
         },
         {
-          id : 9,
             item : 'Bill',
             description : "Case diameter: 20.5mm. Original 18k yellow gold bracelet.In very good condition. Signed and numbered.",
             image : "./img/watch11.jpeg",
@@ -76,6 +75,17 @@ let card_details = [
     ]
     const img_header = document.querySelector('.img-header');
     img_header.src = './img/watch1.png';
+    const floatingActioButton = document.getElementById('floatingActionButton');
+    const modalContainer = document.getElementById('modal-container');
+    const resetOrders = document.getElementById("resetOrders");
+    const divToTal = document.getElementById("total-price");
+    let divTotal = document.getElementById('total-price');
+
+    let totalPrice = parseFloat(localStorage.getItem('total-price')) || 0;
+    let itemContent = JSON.parse(localStorage.getItem('div-item')) || [];
+
+   
+
 //---------__-_-____----__---______--_---_-----_______-_____________________________________________________________________
 const orders_num = document.querySelector('.orders-num');
 function createArticle (card_details){
@@ -119,35 +129,76 @@ function createArticle (card_details){
 }
 createArticle (card_details);
 
+/* const Reset = ()=>{
+  divTotal.innerHTML = '$00';
+  localStorage.removeItem('total-price');
+  localStorage.removeItem('div-item');
+}
+resetOrders.addEventListener("click", Reset); */
+
 const addToCart = ()=>{
   document.addEventListener('DOMContentLoaded', () => {
+
     const btn_order = document.querySelectorAll("#btn-order");
     const modal_items = document.querySelector('.modal-items');
-    let divTotal = document.getElementById('total-price')
 
-    let totalPrice = 0;
+ 
+
+ 
      btn_order.forEach((button, index) =>{
       button.addEventListener('click', () => {
         const product = card_details[index];
         const productPrice = parseFloat(product.price);
+        const productName =product.item;
+
+
+      
        const newList = `
        <div id = "div-item">
        <li class="li-modal">Item: ${product.item}</li>
        <li class="li-modal">price: ${product.price}</li>
        </div>
        `
-       totalPrice += productPrice
+ 
+       totalPrice += productPrice;
+       localStorage.setItem('total-price', totalPrice);
          modal_items.innerHTML += newList;
-         divTotal.innerHTML = `order: ${totalPrice}`
+         divTotal.innerHTML = `order: $${totalPrice}`
          console.log(totalPrice);
+         itemContent.push({ productName, productPrice, id:Date.now()});
+
+         localStorage.setItem('div-item', JSON.stringify(itemContent));
+      
        });
-       
+
      });
+
+     if (totalPrice) {
+      divTotal.innerHTML = (`Order: $${totalPrice}`);
+    }
+
    
   });
+  
+
 }
 addToCart()
 // Ajoutez un gestionnaire d'événements click à chaque bouton
+
+
+
+floatingActioButton.addEventListener('click', ()=>{
+ if (modalContainer.style.display === "none" && resetOrders.style.display === "none" ){
+  modalContainer.setAttribute("style", 'display: block');
+  resetOrders.setAttribute("style", 'display: block');
+ }else{
+  modalContainer.setAttribute("style", 'display: none');
+  resetOrders.setAttribute("style", 'display: none');
+ }
+});
+
+
+
 
 
 let filteredEl ;
