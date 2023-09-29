@@ -2,76 +2,94 @@
 let card_details = [
     
         {
-            
+                  id : 1,
             item : 'Audemar Piguet Royal Oak',
             description : "Some quick example text to build on the card title andmake up the bulk of the card's content",
             image : "./img/watch3.jpeg",
             filter : "Men",
             price: "20000",
-        },
+            rating : 0
+        
+          },
         {
-      
+            id : 2,
             item : 'Boucheron 18k',
             description : "Some quick example text to build on the card title andmake up the bulk of the card's content",
             image : "./img/watch4.jpeg",
             filter : "Men",
-            price: "20500"
-        },
+            price: "20500",
+            rating : 0
+        
+          },
         {
-  
+        id : 3,
             item : 'Rolex GMT-MASTER II',
             description : "Some quick example text to build on the card title andmake up the bulk of the card's content",
             image : "./img/watch5.jpeg",
             filter : "Women",
             price: "1500",
-        },
+            rating : 0
+        
+          },
         {
-    
+          id : 4,
             item : 'Bulgari Solotempo ST 30',
             description : "Some quick example text to build on the card title andmake up the bulk of the card's content",
             image : "./img/watch6.jpeg",
             filter : "Men",
-            price: "100,000"
-        },
+            price: "100000",
+            rating : 0
+        
+          },
         {
-     
+           id : 5,
             item : 'Chanel J12',
             description : "Some quick example text to build on the card title andmake up the bulk of the card's content",
             image : "./img/watch7.webp",
             filter : "Men",
-            price: "15000"
-        },
+            price: "15000",
+            rating : 0
+        
+          },
         {
-     
+           id : 9,
             item : 'Chopard',
             description : "Case in 18K white gold, silver and black dial holding 10 superb mobile diamonds. Case diameter: 25 mm.",
             image : "./img/watch8.jpeg",
             filter : "Women",
-            price: "12000"
-        },
+            price: "12000",
+            rating : 0
+        
+          },
         {
-  
+        id : 6,
             item : 'Titan MX-15',
             description : "Case in 18-carat white gold, openworked silver dial holding seven superb mobile diamonds.",
             image : "./img/watch13.webp",
             filter : "Women",
-            price: "2100"
-        },
+            price: "2100",
+            rating : 0
+        
+          },
         {
-      
+            id : 7,
             item : 'Bill',
             description : "Case diameter: 20.5mm. Original 18k yellow gold bracelet.In very good condition. Signed and numbered.",
             image: "./img/watch10.jpeg",
             filter : "Children",
-            price: "200"
-        },
-        {
-            item : 'Bill',
+            price: "200",
+            rating : 0
+        
+          },
+        {      id : 8,
+            item : 'Barbie Gold',
             description : "Case diameter: 20.5mm. Original 18k yellow gold bracelet.In very good condition. Signed and numbered.",
             image : "./img/watch11.jpeg",
             filter : "Children",
-            price: "150"
-        }
+            price: "150",
+            rating : 0
+        
+          },
     ]
     const img_header = document.querySelector('.img-header');
     img_header.src = './img/watch1.png';
@@ -92,6 +110,7 @@ function createArticle (card_details){
   const items_grid = document.querySelector('.items-grid');
   items_grid.innerHTML = ""
   for (let i = 0; i < card_details.length; i++) {
+
   const listItem = `<div class="col cardCol ${card_details[i].filter}">
     <div class="p-3">
       <div class="card" style="width: 100%">
@@ -120,82 +139,220 @@ function createArticle (card_details){
           />
         </svg>
         </button>
+        <div class="rating-box">
+      <div class="stars">
+        <i class="bi-solid bi-star"></i>
+        <i class="bi-solid bi-star"></i>
+        <i class="bi-solid bi-star"></i>
+        <i class="bi-solid bi-star"></i>
+        <i class="bi-solid bi-star"></i>
+      </div>
+    </div>
+      
         </div>
       </div>
     </div>
   </div>`
-  items_grid.innerHTML += listItem
+  items_grid.innerHTML += listItem;
+
+  const star = document.querySelectorAll('.bi-star')
+// console.log(star);
+star.forEach(element => {
+  element.addEventListener('click', e => {
+    const parentStar = e.target.parentElement;
+    // console.log(e.target.parentElement);
+    const stars = parentStar.querySelectorAll("i");
+    let check = false;
+    for (let i = 0; i < stars.length; i++) {
+      if(!check) {
+        stars[i].classList.remove('bi-star');
+        stars[i].classList.add('bi-star-fill');
+        if (stars[i] === e.target) check = true;
+      } else {
+        stars[i].classList.add('bi-star');
+        stars[i].classList.remove('bi-star-fill');
+      
+      }
+    }
+  })
+})
 }
+
 }
+
+
+
+
+
 createArticle (card_details);
 
-/* const Reset = ()=>{
-  divTotal.innerHTML = '$00';
-  localStorage.removeItem('total-price');
-  localStorage.removeItem('div-item');
-}
-resetOrders.addEventListener("click", Reset); */
+
+
+let cartArr = [];
+
+ 
 
 const addToCart = ()=>{
   document.addEventListener('DOMContentLoaded', () => {
 
     const btn_order = document.querySelectorAll("#btn-order");
-    const modal_items = document.querySelector('.modal-items');
 
- 
-
- 
+  
+  
      btn_order.forEach((button, index) =>{
       button.addEventListener('click', () => {
         const product = card_details[index];
-        const productPrice = parseFloat(product.price);
-        const productName =product.item;
+        const existingCartItem = cartArr.find(cart => cart.item === product.item);
 
-
+        if (!existingCartItem) {
+        const cartObject = {
+          item : product.item,
+          price : product.price,
+          image : product.image
+        }
+        cartArr.push(cartObject);
+       
+        localStorage.setItem('cartArr', JSON.stringify(cartArr));
+        var cartRow = document.createElement('tr');
+        cartRow.classList.add('cart-row');
+        var cartItems = document.getElementsByClassName('cart-items')[0];
+        const storedCartArr = JSON.parse(localStorage.getItem('cartArr'));
+        if (storedCartArr) {
+          cartArr = storedCartArr;
       
-       const newList = `
-       <div id = "div-item">
-       <li class="li-modal">Item: ${product.item}</li>
-       <li class="li-modal">price: ${product.price}</li>
-       </div>
-       `
- 
-       totalPrice += productPrice;
-       localStorage.setItem('total-price', totalPrice);
-         modal_items.innerHTML += newList;
-         divTotal.innerHTML = `order: $${totalPrice}`
-         console.log(totalPrice);
-         itemContent.push({ productName, productPrice, id:Date.now()});
+        cartArr.forEach(cart =>{
+          var cartRowContents = `
+    
+          <td class="cart-item cart-column">
+              <img class="cart-item-image" src="${cart.image}" width="50" height="50">
+              <span class="cart-item-title">${cart.item}</span>                  
+          </td>
+          <td class="cart-item cart-column">
+              <span class="cart-price cart-column">${cart.price}</span>
+          </td>
+          <td class="cart-item cart-column">
+              <input class="cart-quantity-input" type="number" value="1" style="width: 50px">
+              <button class="btn btn-danger" type="button">Remove</button>
+          </td>        
+      `;
+      cartRow.innerHTML = cartRowContents;
+        })
 
-         localStorage.setItem('div-item', JSON.stringify(itemContent));
-      
-       });
-
-     });
-
-     if (totalPrice) {
-      divTotal.innerHTML = (`Order: $${totalPrice}`);
+    cartItems.append(cartRow);
+    cartRow.getElementsByClassName('btn-danger')[0].addEventListener('click', removeCartItem);
+    cartRow.getElementsByClassName('cart-quantity-input')[0].addEventListener('change', quantityChanged);
+    updateCartTotal();
+      }
+    }else{
+      alert('This has item already been added to the cart!');
     }
+       });
+      
+     });   
 
-   
+      // Select all elements with the "i" tag and store them in a NodeList called "stars"
+
   });
+displayCartFromLocalStorage()
+}
+addToCart();
+
+// Fonction pour afficher les éléments du panier depuis le stockage local
+function displayCartFromLocalStorage() {
+  const cartItems = document.getElementsByClassName('cart-items')[0];
+  cartItems.innerHTML = '';
+
+  const storedCartArr = JSON.parse(localStorage.getItem('cartArr'));
+
+  if (storedCartArr) {
+    cartArr = storedCartArr;
+
+    cartArr.forEach(cart => {
+      var cartRow = document.createElement('tr');
+      cartRow.classList.add('cart-row');
+
+      var cartRowContents = `
+        <td class="cart-item cart-column">
+          <img class="cart-item-image" src="${cart.image}" width="50" height="50">
+          <span class="cart-item-title">${cart.item}</span>                  
+        </td>
+        <td class="cart-item cart-column">
+          <span class="cart-price cart-column">${cart.price}</span>
+        </td>
+        <td class="cart-item cart-column">
+          <input class="cart-quantity-input" type="number" value="1" style="width: 50px">
+          <button class="btn btn-danger" type="button">Remove</button>
+        </td>        
+      `;
+     
+      cartRow.innerHTML = cartRowContents;
+      cartItems.append(cartRow);
+
+      cartRow.getElementsByClassName('btn-danger')[0].addEventListener('click', removeCartItem);
+      cartRow.getElementsByClassName('cart-quantity-input')[0].addEventListener('change', quantityChanged);
+    
+    });
   
+    updateCartTotal();
+  }
+}
+
+
+
+window.addEventListener('load', () => {
+  const storedCartArr = JSON.parse(localStorage.getItem('cartArr'));
+
+  if (storedCartArr) {
+    cartArr = storedCartArr;
+    // Affiche les éléments du panier au chargement de la page
+    addToCart()
+    updateCartTotal();
+  }
+});
+
+// Ajoutez un gestionnaire d'événements click à chaque bouton
+function removeCartItem(event) {
+  let buttonClicked = event.target;
+  let cartItem = buttonClicked.parentElement.parentElement;
+  let itemName = cartItem.getElementsByClassName('cart-item-title')[0].innerText;
+  
+  // Supprimer l'élément du local storage en utilisant son nom (itemName)
+  const storedCartArr = JSON.parse(localStorage.getItem('cartArr'));
+  if (storedCartArr) {
+    const updatedCartArr = storedCartArr.filter(cart => cart.item !== itemName);
+    localStorage.setItem('cartArr', JSON.stringify(updatedCartArr));
+  }
+
+  // Supprimer l'élément de l'affichage du panier
+  cartItem.remove();
+  updateCartTotal();
+  addToCart()
+}
+function quantityChanged(event){
+  var input = event.target;
+  if(isNaN(input.value) || input.value <= 0 ){
+      input.value = 1;
+  }
+  updateCartTotal();
+}
+
+function updateCartTotal(){
+  var cartItemContainer = document.getElementsByClassName('cart-items')[0];
+  var cartRows = cartItemContainer.getElementsByClassName('cart-row');
+  var total = 0;
+  for (var i = 0 ; i< cartRows.length ; i++){
+      var cartRow =cartRows[i];
+      var priceElement = cartRow.getElementsByClassName('cart-price')[0];
+      var quantityElement = cartRow.getElementsByClassName('cart-quantity-input')[0];
+      var price = parseFloat(priceElement.innerText)
+      var quantity = quantityElement.value;
+      total = total + (price * quantity);
+       
+  }
+  total = Math.round(total * 100 )/100;
+  document.getElementsByClassName('cart-total-price')[0].innerText = "$" + total + '.00';
 
 }
-addToCart()
-// Ajoutez un gestionnaire d'événements click à chaque bouton
-
-
-
-floatingActioButton.addEventListener('click', ()=>{
- if (modalContainer.style.display === "none" && resetOrders.style.display === "none" ){
-  modalContainer.setAttribute("style", 'display: block');
-  resetOrders.setAttribute("style", 'display: block');
- }else{
-  modalContainer.setAttribute("style", 'display: none');
-  resetOrders.setAttribute("style", 'display: none');
- }
-});
 
 
 
@@ -226,116 +383,3 @@ searchInput.addEventListener('input', () => {
   );
   createArticle(filteredEl);
 });
-
-
-/* const filterButtons = document.querySelectorAll('.btn-filter');
-const items = document.querySelectorAll('.col');
-filterButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    const selectedFilter = button.classList.contains('filter-men')
-      ? 'filter-men'
-      : button.classList.contains('filter-women')
-      ? 'filter-women'
-      : button.classList.contains('filter-children')
-      ? 'filter-children'
-      : '*';
-    console.log(selectedFilter);
-    filterButtons.forEach(btn => {
-      btn.parentElement.classList.remove('filter-active');
-    });
-    button.parentElement.classList.add('filter-active');
-
-    items.forEach(item => {
-      if (selectedFilter === '*' || item.classList.contains(selectedFilter)) {
-        item.style.display = 'block';
-      } else {
-        item.style.display = 'none';
-      }
-    });
-  });
-});
- */
-
-
-/* 
-
-filterList.forEach(filter => {
-  filter.addEventListener('click', () => {
-    // Supprimer la classe 'filter-active' de tous les filtres
-    filterList.forEach(li => {
-      li.classList.add('filter-active');
-  
-    });
-    // Ajouter la classe 'filter-active' au filtre actuel
-    filter.classList.remove('filter-active');
-    // Récupérer la valeur du filtre à partir de l'attribut data-filter
-    const selectedFilter = filter.getAttribute('data-filter');
-
-    // Afficher ou masquer les cartes en fonction du filtre sélectionné
-    const cardColumns = document.querySelectorAll('.cardCol');
-    cardColumns.forEach(column => {
-      if (selectedFilter === '*' || column.classList.contains(selectedFilter)) {
-        column.style.display = 'block';
-      } else {
-        column.style.display = 'none';
-   
-      }
-    });
-  });
-
-}); */
-
-
-/* var items = document.querySelectorAll('.filter-sections div');
-animate(items);
-
-// filter on click
-each('.filter-links li a', function(el) {
-  el.addEventListener('click', function(e) {
-    e.preventDefault();
-    filterLinks(el);
-  });
-});
-
-// filter links functions
-function filterLinks(element) {
-  // get text 
-  var el = element.textContent,
-    // convert to lowercase
-    linksTolowerCase = el.toLowerCase();
-  // if all remove all elements
-  if (el === 'All') {
-    // first show all view class
-    each('.view', function(e) {
-      e.classList.remove('view');
-    });
-    // no show init animation
-    animate(items);
-  } else {
-    // if not click all remove all elements
-    each('.view', function(e) {
-      e.classList.remove('view');
-    });
-  }
-  // show animation for current elements
-  animate(document.querySelectorAll('.' + linksTolowerCase));
-};
-// forech arrays
-function each(el, callback) {
-  var allDivs = document.querySelectorAll(el),
-    alltoArr = Array.prototype.slice.call(allDivs);
-  Array.prototype.forEach.call(alltoArr, function(selector, index) {
-    if (callback) return callback(selector);
-  });
-};
-// animate function
-function animate(item) {
-  (function show(counter) {
-    setTimeout(function() {
-      item[counter].classList.add('view');
-      counter++;
-      if (counter < item.length) show(counter);
-    },50);
-  })(0);
-}; */
-
